@@ -23,7 +23,6 @@ Thumbs.db
 [Dd]ebug*/
 *.lib
 *.sbr
-*.sdf
 *.orig
 obj/
 [Rr]elease*/
@@ -31,8 +30,6 @@ _ReSharper*/
 [Tt]est[Rr]esult*
 packages/
 DevBuild/
-!tests/NpSharp.Framework.Persistence.Unit.Tests/Resources/esentWin8/*.exe
-!tests/NpSharp.Framework.Persistence.Unit.Tests/Resources/esentWin8/*.dll
-.vs/*.*
-.vscode/*
-src/Messaging/lib/
+applicationhost.config
+.vs/*
+*desktop.ini
