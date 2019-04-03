@@ -1,8 +1,8 @@
 ﻿namespace Thoughtworks.Trains.Domain
 {
-    public struct Destination
+    public struct Route
     {
-        public Destination(Station to, int distance)
+        public Route(Town to, int distance)
         {
             To = to;
             Distance = distance;
@@ -10,6 +10,6 @@
 
         public int Distance { get; set; }
 
-        public Station To { get; }
+        public Town To { get; }
     }
 }

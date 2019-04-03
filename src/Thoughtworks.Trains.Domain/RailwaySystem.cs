@@ -1,20 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Thoughtworks.Trains.Domain
 {
     public class RailwaySystem
     {
-        private Dictionary<string, Station> Stations { get; } = new Dictionary<string, Station>();
-
-        public void AddStation(Station station)
+        public void AddTown(Town town)
         {
-            if (Stations.ContainsKey(station.Name)) return;
-            Stations.Add(station.Name, station);
+            if (TownsByName.ContainsKey(town.Name)) return;
+            TownsByName.Add(town.Name, town);
+            RoutesByTown.Add(town, town.Routes);
         }
+        private Dictionary<string, Town> TownsByName { get; } = new Dictionary<string, Town>();
+        private Dictionary<Town, IEnumerable<Route>> RoutesByTown { get; } = new Dictionary<Town, IEnumerable<Route>>();
 
-        public Station GetStationByName(string station) => Stations[station];
+        public Town GetTownByName(string town) => TownsByName[town];
+
+        public IEnumerable<Town> GetTowns() => TownsByName.Values;
+
+        public IEnumerable<Route> GetRoutesByTown(Town town) => RoutesByTown[town];
     }
 }

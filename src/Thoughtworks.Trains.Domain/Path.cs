@@ -6,10 +6,10 @@ namespace Thoughtworks.Trains.Domain
 {
     public class Path
     {
-        private readonly List<Station> _routes = new List<Station>();
+        private readonly List<Town> _routes = new List<Town>();
 
-        public IEnumerable<Station> Routes => _routes;
+        public IEnumerable<Town> Routes => _routes;
 
-        public void AddStop(Station station) => _routes.Add(station);
+        public void AddStop(Town town) => _routes.Add(town);
     }
 }
