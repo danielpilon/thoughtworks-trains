@@ -39,73 +39,26 @@ namespace Thoughtworks.Trains.Application.Tests
 
         private RailwaySystem Railway { get; } = new RailwaySystem();
 
-        [Fact]
-        public void ResolveDistance_ShouldReturnDistanceBetweenABC()
+        [Theory]
+        [InlineData(9, "A", "B", "C")]
+        [InlineData(5, "A", "D")]
+        [InlineData(13, "A", "D", "C")]
+        [InlineData(22, "A", "E", "B", "C", "D")]
+        public void ResolveDistance_ShouldReturnDistanceBetweenABC(int expectedDistance, params string[] towns)
         {
             // Arrange
             var path = new Path();
-            path.AddStop(Railway.GetTownByName("A"));
-            path.AddStop(Railway.GetTownByName("B"));
-            path.AddStop(Railway.GetTownByName("C"));
+            foreach (var town in towns) path.AddStop(Railway.GetTownByName(town));
 
             // Act
-            var distance = TripService.ResolveDistance(path);
+            var actualDistance = TripService.ResolveDistance(path);
 
             // Assert
-            Assert.Equal(9, distance);
+            Assert.Equal(expectedDistance, actualDistance);
         }
 
         [Fact]
-        public void ResolveDistance_ShouldReturnDistanceBetweenAD()
-        {
-            // Arrange
-            var path = new Path();
-            path.AddStop(Railway.GetTownByName("A"));
-            path.AddStop(Railway.GetTownByName("D"));
-
-            // Act
-            var distance = TripService.ResolveDistance(path);
-
-            // Assert
-            Assert.Equal(5, distance);
-        }
-
-        [Fact]
-        public void ResolveDistance_ShouldReturnDistanceBetweenADC()
-        {
-            // Arrange
-            var path = new Path();
-            path.AddStop(Railway.GetTownByName("A"));
-            path.AddStop(Railway.GetTownByName("D"));
-            path.AddStop(Railway.GetTownByName("C"));
-
-            // Act
-            var distance = TripService.ResolveDistance(path);
-
-            // Assert
-            Assert.Equal(13, distance);
-        }
-
-        [Fact]
-        public void ResolveDistance_ShouldReturnDistanceBetweenAEBCD()
-        {
-            // Arrange
-            var path = new Path();
-            path.AddStop(Railway.GetTownByName("A"));
-            path.AddStop(Railway.GetTownByName("E"));
-            path.AddStop(Railway.GetTownByName("B"));
-            path.AddStop(Railway.GetTownByName("C"));
-            path.AddStop(Railway.GetTownByName("D"));
-
-            // Act
-            var distance = TripService.ResolveDistance(path);
-
-            // Assert
-            Assert.Equal(22, distance);
-        }
-
-        [Fact]
-        public void ResolveDistance_ShouldReturnDistanceBetweenAED()
+        public void ResolveDistance_WhenRouteDoesNotExists_ShouldThrowInvalidRouteException()
         {
             // Arrange
             var path = new Path();
@@ -182,6 +135,5 @@ namespace Thoughtworks.Trains.Application.Tests
             // Assert
             Assert.Equal(7, trips.Count());
         }
-
     }
 }
