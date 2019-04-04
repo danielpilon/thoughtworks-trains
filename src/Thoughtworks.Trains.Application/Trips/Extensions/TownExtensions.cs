@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Thoughtworks.Trains.Domain.Towns;
+﻿using Thoughtworks.Trains.Domain.Towns;
 
-namespace Thoughtworks.Trains.Application.Routes.Extensions
+namespace Thoughtworks.Trains.Application.Trips.Extensions
 {
     public static class TownExtensions
     {

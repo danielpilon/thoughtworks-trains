@@ -1,5 +1,5 @@
 using System.Linq;
-using Thoughtworks.Trains.Application.Routes;
+using Thoughtworks.Trains.Application.Trips;
 using Thoughtworks.Trains.Domain.Railway;
 using Thoughtworks.Trains.Domain.Towns;
 using Thoughtworks.Trains.Domain.Towns.Exceptions;
@@ -7,9 +7,9 @@ using Xunit;
 
 namespace Thoughtworks.Trains.Application.Tests
 {
-    public class RouteServiceUnitTests
+    public class TripServiceUnitTests
     {
-        public RouteServiceUnitTests()
+        public TripServiceUnitTests()
         {
             var townA = new Town("A");
             Railway.AddTown(townA);
@@ -32,6 +32,7 @@ namespace Thoughtworks.Trains.Application.Tests
             townC.AddRoute(new Route(townC, townE, 2));
 
             townD.AddRoute(new Route(townD, townC, 8));
+            townD.AddRoute(new Route(townD, townE, 6));
 
             townE.AddRoute(new Route(townE, townB, 3));
         }
@@ -48,7 +49,7 @@ namespace Thoughtworks.Trains.Application.Tests
             path.AddStop(Railway.GetTownByName("C"));
 
             // Act
-            var distance = RouteService.ResolveDistance(path);
+            var distance = TripService.ResolveDistance(path);
 
             // Assert
             Assert.Equal(9, distance);
@@ -63,7 +64,7 @@ namespace Thoughtworks.Trains.Application.Tests
             path.AddStop(Railway.GetTownByName("D"));
 
             // Act
-            var distance = RouteService.ResolveDistance(path);
+            var distance = TripService.ResolveDistance(path);
 
             // Assert
             Assert.Equal(5, distance);
@@ -79,7 +80,7 @@ namespace Thoughtworks.Trains.Application.Tests
             path.AddStop(Railway.GetTownByName("C"));
 
             // Act
-            var distance = RouteService.ResolveDistance(path);
+            var distance = TripService.ResolveDistance(path);
 
             // Assert
             Assert.Equal(13, distance);
@@ -97,7 +98,7 @@ namespace Thoughtworks.Trains.Application.Tests
             path.AddStop(Railway.GetTownByName("D"));
 
             // Act
-            var distance = RouteService.ResolveDistance(path);
+            var distance = TripService.ResolveDistance(path);
 
             // Assert
             Assert.Equal(22, distance);
@@ -113,11 +114,10 @@ namespace Thoughtworks.Trains.Application.Tests
             path.AddStop(Railway.GetTownByName("D"));
 
             // Act and assert
-            Assert.Throws<InvalidRouteException>(() => RouteService.ResolveDistance(path));
+            Assert.Throws<InvalidRouteException>(() => TripService.ResolveDistance(path));
         }
 
         [Theory]
-        [InlineData("C", "C", 4, 3)]
         [InlineData("C", "C", 3, 2)]
         [InlineData("A", "C", 1, 0)]
         [InlineData("A", "B", 1, 1)]
@@ -125,44 +125,48 @@ namespace Thoughtworks.Trains.Application.Tests
         public void ResolveTripsWithMaxStops_ShouldReturnExpectedMaxTrips_WithMaximumStops(string from, string to, int maxStops, int expectedTrips)
         {
             // Act
-            var trips = RouteService.ResolveTripsWithMaxStops(Railway.GetTownByName(from), Railway.GetTownByName(to), maxStops);
+            var trips = TripService
+                .ResolveTripsUpToMaxStops(Railway.GetTownByName(from), Railway.GetTownByName(to), maxStops)
+                .Where(_ => _.Stops <= maxStops);
 
             // Assert
-            Assert.Equal(expectedTrips, trips);
+            Assert.Equal(expectedTrips, trips.Count());
         }
 
         [Theory]
         [InlineData("A", "C", 4, 3)]
+        [InlineData("A", "C", 2, 2)]
 
         public void ResolveTripsWithExactNumberOfStops_ShouldReturnExpectedMaxTrips_WithExactStops(string from, string to, int stops, int expectedTrips)
         {
             // Act
-            var trips = RouteService.ResolveTripsWithExactNumberOfStops(Railway.GetTownByName(from), Railway.GetTownByName(to), stops);
+            var trips = TripService
+                .ResolveTripsUpToMaxStops(Railway.GetTownByName(from), Railway.GetTownByName(to), stops)
+                .Where(_ => _.Stops == stops);
 
             // Assert
-            Assert.Equal(expectedTrips, trips);
+            Assert.Equal(expectedTrips, trips.Count());
         }
 
         [Theory]
         [InlineData("B", "B", 9)]
         [InlineData("A", "B", 5)]
-        [InlineData("D", "B", 13)]
+        [InlineData("D", "B", 9)]
         [InlineData("A", "C", 9)]
-        public void ResolveShortestDistance_ShouldReturnExpectedDistanceBasedOnTheRoute(string from, string to, int expectedDistance)
+        public void ResolveShortestTrip_ShouldReturnExpectedDistanceBasedOnTheRoute(string from, string to, int expectedDistance)
         {
             // Act
-            var path = RouteService.ResolveShortestDistance(Railway,
-                Railway.GetTownByName(from), Railway.GetTownByName(to));
+            var path = TripService.ResolveShortestTrip(Railway, Railway.GetTownByName(from), Railway.GetTownByName(to));
 
             // Assert
             Assert.Equal(expectedDistance, path.TotalDistance);
         }
 
         [Fact]
-        public void ResolveShortestDistance_WhenRouteDoesNotExist_ShouldThrowInvalidRouteException()
+        public void ResolveShortestTrip_WhenRouteDoesNotExist_ShouldThrowInvalidRouteException()
         {
             // Act and Assert
-            Assert.Throws<InvalidRouteException>(() => RouteService.ResolveShortestDistance(Railway,
+            Assert.Throws<InvalidRouteException>(() => TripService.ResolveShortestTrip(Railway,
                 Railway.GetTownByName("C"), Railway.GetTownByName("A")));
         }
         
@@ -173,10 +177,10 @@ namespace Thoughtworks.Trains.Application.Tests
             var townC = Railway.GetTownByName("C");
 
             // Act
-            var trips = RouteService.ResolveTripsWithMaxStops(townC, townC, 30);
+            var trips = TripService.ResolveRoutesWithDistanceLessThan(townC, townC, 30);
 
             // Assert
-            Assert.Equal(7, trips);
+            Assert.Equal(7, trips.Count());
         }
 
     }

@@ -11,18 +11,18 @@ namespace Thoughtworks.Trains.Domain.Towns
             Name = name;
         }
 
-        private Dictionary<string, Route> RoutesByName { get; } = new Dictionary<string, Route>();
+        private Dictionary<Town, Route> RoutesByDestinationTown { get; } = new Dictionary<Town, Route>();
 
         public string Name { get; }
 
-        public IEnumerable<Route> Routes => RoutesByName.Values;
+        public IEnumerable<Route> Routes => RoutesByDestinationTown.Values;
 
-        public void AddRoute(Route route) => RoutesByName.Add(route.To.Name, route);
+        public void AddRoute(Route route) => RoutesByDestinationTown.Add(route.To, route);
 
-        public Route GetRouteByName(string name) =>
-            RoutesByName.ContainsKey(name) ? RoutesByName[name] : throw new InvalidRouteException($"There's no such route that passes via '{name}' town.");
+        public Route GetRoute(Town to) =>
+            RoutesByDestinationTown.ContainsKey(to) ? RoutesByDestinationTown[to] : throw new InvalidRouteException($"There's no such route that passes via '{to}' town.");
 
-        public bool HasRoute(string name) => RoutesByName.ContainsKey(name);
+        public bool HasRoute(Town to) => RoutesByDestinationTown.ContainsKey(to);
 
         public bool Equals(Town other) => !ReferenceEquals(null, other) && (ReferenceEquals(this, other) || string.Equals(Name, other.Name));
 
