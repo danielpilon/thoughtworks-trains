@@ -4,8 +4,11 @@ using System.Text;
 
 namespace Thoughtworks.Trains.App
 {
-    public class CommandLineParser
+    public class RailwaySystemCommandLineParser
     {
+        public void Parse(string[] args)
+        {
 
+        }
     }
 }

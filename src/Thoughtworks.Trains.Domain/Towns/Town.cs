@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Thoughtworks.Trains.Domain.Towns.Exceptions;
 
-namespace Thoughtworks.Trains.Domain
+namespace Thoughtworks.Trains.Domain.Towns
 {
     public class Town : IEquatable<Town>
     {
@@ -32,13 +33,5 @@ namespace Thoughtworks.Trains.Domain
         public override int GetHashCode() => Name != null ? Name.GetHashCode() : 0;
 
         public override string ToString() => Name;
-    }
-
-    public class InvalidRouteException : Exception
-    {
-        public InvalidRouteException(string s) : base(s)
-        {
-
-        }
     }
 }

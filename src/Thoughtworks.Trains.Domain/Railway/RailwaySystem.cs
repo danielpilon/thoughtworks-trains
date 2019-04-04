@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using Thoughtworks.Trains.Domain.Towns;
 
-namespace Thoughtworks.Trains.Domain
+namespace Thoughtworks.Trains.Domain.Railway
 {
     public class RailwaySystem
     {

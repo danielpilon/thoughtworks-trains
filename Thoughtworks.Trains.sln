@@ -11,7 +11,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{FE154959
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Thoughtworks.Trains.Domain.Tests", "tests\Thoughtworks.Trains.Domain.Tests\Thoughtworks.Trains.Domain.Tests.csproj", "{F448D43F-FF82-42B3-AB6A-D725831FC877}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thoughtworks.Trains.App", "src\Thoughtworks.Trains.App\Thoughtworks.Trains.App.csproj", "{373B1BDC-55A4-46DF-B95D-65B22618B1D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Thoughtworks.Trains.App", "src\Thoughtworks.Trains.App\Thoughtworks.Trains.App.csproj", "{373B1BDC-55A4-46DF-B95D-65B22618B1D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thoughtworks.Trains.Application", "src\Thoughtworks.Trains.Application\Thoughtworks.Trains.Application.csproj", "{87EB4BC4-E347-499C-BDDE-3D4FC5B197AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thoughtworks.Trains.Application.Tests", "tests\Thoughtworks.Trains.Application.Tests\Thoughtworks.Trains.Application.Tests.csproj", "{A96812D9-308D-4B3A-B504-7DA4B8AE609E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +35,14 @@ Global
 		{373B1BDC-55A4-46DF-B95D-65B22618B1D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{373B1BDC-55A4-46DF-B95D-65B22618B1D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{373B1BDC-55A4-46DF-B95D-65B22618B1D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87EB4BC4-E347-499C-BDDE-3D4FC5B197AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87EB4BC4-E347-499C-BDDE-3D4FC5B197AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87EB4BC4-E347-499C-BDDE-3D4FC5B197AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87EB4BC4-E347-499C-BDDE-3D4FC5B197AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A96812D9-308D-4B3A-B504-7DA4B8AE609E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A96812D9-308D-4B3A-B504-7DA4B8AE609E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A96812D9-308D-4B3A-B504-7DA4B8AE609E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A96812D9-308D-4B3A-B504-7DA4B8AE609E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -39,6 +51,8 @@ Global
 		{B31D27F2-3286-4B75-A8AC-3872720D840D} = {E98C2E16-02F3-4EE4-A75A-D75C0B3E030E}
 		{F448D43F-FF82-42B3-AB6A-D725831FC877} = {FE154959-C1FA-4C2F-A0B4-51BF6DB7EF34}
 		{373B1BDC-55A4-46DF-B95D-65B22618B1D4} = {E98C2E16-02F3-4EE4-A75A-D75C0B3E030E}
+		{87EB4BC4-E347-499C-BDDE-3D4FC5B197AA} = {E98C2E16-02F3-4EE4-A75A-D75C0B3E030E}
+		{A96812D9-308D-4B3A-B504-7DA4B8AE609E} = {FE154959-C1FA-4C2F-A0B4-51BF6DB7EF34}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {492F1D65-B577-452E-8B36-CA8B1D7ED2F0}
