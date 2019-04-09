@@ -10,52 +10,27 @@ namespace Thoughtworks.Trains.Application.Trips
 {
     public class TripService
     {
-        public static int ResolveDistance(IPath path)
+        public static IEnumerable<ITrip> Search(Town from, Town to, Func<ITrip, bool> stopSearching, Func<ITrip, bool> matchCondition = null)
         {
-            var distance = 0;
-            for (var i = 0; i < path.Towns.Count() - 1; i++)
-            {
-                var fromTown = path.Towns.ElementAt(i);
-                var toTown = path.Towns.ElementAt(i + 1);
-
-                distance += fromTown
-                    .GetRoute(toTown)
-                    .Distance;
-            }
-
-            return distance;
-        }
-
-        public static IEnumerable<ITrip> ResolveTripsUpToMaxStops(Town from, Town to, int maxStops)
-        {
-            if (maxStops == 0) return Enumerable.Empty<ITrip>();
-            if (maxStops == 1 && from.HasRoute(to))
-            {
-                if (!from.HasRoute(to)) return Enumerable.Empty<ITrip>();
-                var path = new Trip(from);
-                path.AddRoute(from.GetRoute(to));
-                return new[] { path };
-            }
-
             var trips = new List<ITrip>();
-            var currentPath = new List<Route>();
-            void SearchPaths(Town current)
-            {
-                if (currentPath.Count > maxStops)
-                    return;
 
-                if (current.Equals(to) && currentPath.Count > 0)
+            void SearchPaths(Town current, Trip currentTrip = null)
+            {
+                if (currentTrip == null) currentTrip = new Trip(current);
+                if (stopSearching(currentTrip)) return;
+
+                if (current.Equals(to) && currentTrip.Routes.Any() && (matchCondition == null || matchCondition(currentTrip)))
                 {
                     var trip = new Trip(from);
-                    foreach (var route in currentPath) trip.AddRoute(route);
+                    foreach (var route in currentTrip.Routes) trip.AddRoute(route);
                     trips.Add(trip);
                 }
 
                 foreach (var route in current.Routes)
                 {
-                    currentPath.Add(route);
-                    SearchPaths(route.To);
-                    currentPath.Remove(route);
+                    currentTrip.AddRoute(route);
+                    SearchPaths(route.To, currentTrip);
+                    currentTrip.RemoveLast();
                 }
             }
 
@@ -63,7 +38,19 @@ namespace Thoughtworks.Trains.Application.Trips
             return trips;
         }
 
-        public static ITrip ResolveShortestTrip(RailwaySystem railwaySystem, Town from, Town to)
+        public static int ResolveDistance(IPath path)
+        {
+            var distance = 0;
+            for (var i = 0; i < path.Towns.Count() - 1; i++)
+            {
+                var fromTown = path.Towns.ElementAt(i);
+                var toTown = path.Towns.ElementAt(i + 1);
+                distance += fromTown.GetRoute(toTown).Distance;
+            }
+            return distance;
+        }
+
+        public static ITrip FindShortest(RailwaySystem railwaySystem, Town from, Town to)
         {
             var shortestPath = new Dictionary<Town, Route>();
             var distances = new Dictionary<Town, int>();
@@ -79,7 +66,7 @@ namespace Thoughtworks.Trains.Application.Trips
 
             while (actualTowns.Count() != 0)
             {
-                // TODO: This is bad. Should use a Binary Heap instead, but .NET doesn't have one by default like Java's Priority Queue.
+                // This is bad. Should use a Binary Heap instead, but .NET doesn't have one by default like Java's Priority Queue.
                 var actualShortest = actualTowns.OrderBy(t => distances[t]).First();
                 actualTowns.Remove(actualShortest);
 
@@ -107,11 +94,6 @@ namespace Thoughtworks.Trains.Application.Trips
             }
 
             throw new InvalidRouteException($"There's no such route from '{from}' to '{to}'.");
-        }
-
-        public static IEnumerable<ITrip> ResolveRoutesWithDistanceLessThan(Town from, Town to, int maxDistance)
-        {
-            throw new NotImplementedException();
         }
     }
 }

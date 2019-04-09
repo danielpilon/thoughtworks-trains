@@ -12,8 +12,8 @@ namespace Thoughtworks.Trains.Application.Trips
             Origin = origin;
         }
 
-        private List<Route> InnerRoutes { get; } = new List<Route>();
-
+        private Stack<Route> InnerRoutes { get; } = new Stack<Route>();
+        
         public Town Origin { get; }
 
         public IEnumerable<Route> Routes => InnerRoutes;
@@ -24,9 +24,16 @@ namespace Thoughtworks.Trains.Application.Trips
 
         public void AddRoute(Route route)
         {
-            InnerRoutes.Add(route);
+            InnerRoutes.Push(route);
             TotalDistance += route.Distance;
             Stops++;
+        }
+
+        public void RemoveLast()
+        {
+            var route = InnerRoutes.Pop();
+            TotalDistance -= route.Distance;
+            Stops--;
         }
 
         public override string ToString() => $"{Origin.Name}->{string.Join("->", Routes.SelectMany(_ => _.To.Name))}";
