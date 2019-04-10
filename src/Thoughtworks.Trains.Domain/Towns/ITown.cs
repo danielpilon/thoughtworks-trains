@@ -4,6 +4,9 @@ using Thoughtworks.Trains.Domain.Towns.Exceptions;
 
 namespace Thoughtworks.Trains.Domain.Towns
 {
+    /// <summary>
+    /// Represents a town in a railway system.
+    /// </summary>
     public interface ITown : IEquatable<ITown>
     {
         /// <summary>

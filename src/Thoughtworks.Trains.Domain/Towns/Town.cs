@@ -22,19 +22,14 @@ namespace Thoughtworks.Trains.Domain.Towns
         /// </summary>
         private Dictionary<ITown, Route> RoutesByDestinationTown { get; } = new Dictionary<ITown, Route>();
 
-        /// <summary>
-        /// Gets a <see cref="string"/> representing the name of the town.
-        /// </summary>
+        /// <inheritdoc />
         public string Name { get; }
 
-        /// <summary>
-        /// Gets a <see cref="IEnumerable{T}"/> of <see cref="Route"/> with all the instances of <see cref="Route"/>
-        /// for this instance of <see cref="Town"/>.
-        /// </summary>
+        /// <inheritdoc />
         public IEnumerable<Route> Routes => RoutesByDestinationTown.Values;
 
         /// <summary>
-        /// Adds a route 
+        /// Adds a new <see cref="Route"/>. 
         /// </summary>
         /// <exception cref="InconsistentRouteException">Throws whenever the given <paramref name="route"/> from <see cref="Town"/> is not the current instance.</exception>
         /// <param name="route">An instance of <see cref="Route"/>.</param>
@@ -46,13 +41,7 @@ namespace Thoughtworks.Trains.Domain.Towns
                 throw new InconsistentRouteException($"Inconsistent route detected. Origin {route.From} is not {this}.", route);
         }
 
-        /// <summary>
-        /// Gets an instance of <see cref="Route"/> for a given destination <see cref="Town"/>.
-        /// </summary>
-        /// <exception cref="InvalidRouteException">Throws whenever the <paramref name="to"/> <see cref="Town"/>
-        /// is not a destination from this <see cref="Town"/>.</exception>
-        /// <param name="to">An instance of <see cref="Town"/>.</param>
-        /// <returns>An instance of <see cref="Route"/>.</returns>
+        /// <inheritdoc />
         public Route GetRoute(ITown to) =>
             RoutesByDestinationTown.ContainsKey(to) ? RoutesByDestinationTown[to] : throw new InvalidRouteException($"There's no such route that goes to '{to}' town.");
         

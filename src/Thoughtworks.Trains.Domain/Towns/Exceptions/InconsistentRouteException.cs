@@ -2,6 +2,9 @@
 
 namespace Thoughtworks.Trains.Domain.Towns.Exceptions
 {
+    /// <summary>
+    /// An <see cref="Exception"/> that represents an incosistent route.
+    /// </summary>
     public class InconsistentRouteException : Exception
     {
         /// <summary>
