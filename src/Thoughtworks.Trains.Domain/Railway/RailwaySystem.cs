@@ -29,9 +29,15 @@ namespace Thoughtworks.Trains.Domain.Railway
         
         /// <inheritdoc />
         public ITown GetTownByName(string town) => HasTown(town) ? TownsByName[town] : throw new UnknownTownException(town);
-        /// <inheritdoc />
-        public bool HasTown(string town) => TownsByName.ContainsKey(town);
+        
         /// <inheritdoc />
         public IEnumerable<ITown> GetTowns() => TownsByName.Values;
+
+        /// <summary>
+        /// Verifies if the given town name has an equivalent <see cref="Town"/> instance.
+        /// </summary>
+        /// <param name="town">An <see cref="string"/> representing the name of the town to find.</param>
+        /// <returns><c>True</c> if an instance of <see cref="Town"/> is found; Otherwise, <c>false</c>.</returns>
+        public bool HasTown(string town) => TownsByName.ContainsKey(town);
     }
 }

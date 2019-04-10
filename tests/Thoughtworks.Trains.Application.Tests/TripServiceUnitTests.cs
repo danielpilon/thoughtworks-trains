@@ -129,10 +129,10 @@ namespace Thoughtworks.Trains.Application.Tests
         public void ResolveShortestTrip_ShouldReturnExpectedDistanceBasedOnTheRoute(string from, string to, int expectedDistance)
         {
             // Act
-            var path = TripService.FindShortest(Railway, Railway.GetTownByName(from), Railway.GetTownByName(to));
+            var trip = TripService.FindShortest(Railway, Railway.GetTownByName(from), Railway.GetTownByName(to));
 
             // Assert
-            Assert.Equal(expectedDistance, path.TotalDistance);
+            Assert.Equal(expectedDistance, trip.TotalDistance);
         }
 
         [Fact]

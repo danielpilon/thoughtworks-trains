@@ -18,13 +18,6 @@ namespace Thoughtworks.Trains.Domain.Railway
         ITown GetTownByName(string town);
 
         /// <summary>
-        /// Verifies if the given town name has an equivalent <see cref="Town"/> instance.
-        /// </summary>
-        /// <param name="town">An <see cref="string"/> representing the name of the town to find.</param>
-        /// <returns><c>True</c> if an instance of <see cref="Town"/> is found; Otherwise, <c>false</c>.</returns>
-        bool HasTown(string town);
-
-        /// <summary>
         /// Get all known towns in this <see cref="IRailwaySystem"/>.
         /// </summary>
         /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="ITown"/> with all the known towns.</returns>

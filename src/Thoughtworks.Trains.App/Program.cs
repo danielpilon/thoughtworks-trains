@@ -8,10 +8,18 @@ using Thoughtworks.Trains.Domain.Towns.Exceptions;
 
 namespace Thoughtworks.Trains.App
 {
+    /// <summary>
+    /// Entry point class for this application.
+    /// </summary>
     class Program
     {
         private const string SampleInput = "AB5,BC4,CD8,DC8,DE6,AD5,CE2,EB3,AE7";
 
+        /// <summary>
+        /// Entry point method. Starts the program.
+        /// </summary>
+        /// <param name="args">An <see cref="string"/> array with the command line arguments (unused).</param>
+        // ReSharper disable once UnusedParameter.Local
         static void Main(string[] args)
         {
             var railwaySystemBuilder = new RailwaySystemBuilder();
@@ -57,6 +65,10 @@ namespace Thoughtworks.Trains.App
             Console.ReadKey();
         }
 
+        /// <summary>
+        /// Writes the expected program outputs to the stdout.
+        /// </summary>
+        /// <param name="railwaySystem">An instance of <see cref="IRailwaySystem"/>.</param>
         private static void WriteOutput(IRailwaySystem railwaySystem)
         {
             var tripService = new TripService();
@@ -75,6 +87,11 @@ namespace Thoughtworks.Trains.App
             Console.WriteLine();
         }
 
+        /// <summary>
+        /// Safely writes to the output against <see cref="InvalidRouteException"/> occurrences.
+        /// </summary>
+        /// <param name="outputIndex">The index of the output to be written.</param>
+        /// <param name="output">A <see cref="Func{TResult}"/> returning a string that calculates the desired outputs.</param>
         private static void SafeWriteOutput(int outputIndex, Func<string> output)
         {
             try
