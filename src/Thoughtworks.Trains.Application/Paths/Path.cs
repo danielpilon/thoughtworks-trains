@@ -8,10 +8,10 @@ namespace Thoughtworks.Trains.Application.Paths
 {
     internal sealed class Path : IPath
     {
-        private readonly List<Town> _towns = new List<Town>();
+        private readonly List<ITown> _towns = new List<ITown>();
 
-        public IEnumerable<Town> Towns => _towns;
+        public IEnumerable<ITown> Towns => _towns;
 
-        public void AddStop(Town town) => _towns.Add(town);
+        public void AddStop(ITown town) => _towns.Add(town);
     }
 }

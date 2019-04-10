@@ -2,7 +2,6 @@
 using System.Linq;
 using Thoughtworks.Trains.App.Extensions;
 using Thoughtworks.Trains.Application.Paths;
-using Thoughtworks.Trains.Application.RailwaySystems;
 using Thoughtworks.Trains.Application.Trips;
 using Thoughtworks.Trains.Domain.Railway;
 using Thoughtworks.Trains.Domain.Towns.Exceptions;
@@ -58,7 +57,7 @@ namespace Thoughtworks.Trains.App
             Console.ReadKey();
         }
 
-        private static void WriteOutput(RailwaySystem railwaySystem)
+        private static void WriteOutput(IRailwaySystem railwaySystem)
         {
             var tripService = new TripService();
             var pathBuilder = new PathBuilder();

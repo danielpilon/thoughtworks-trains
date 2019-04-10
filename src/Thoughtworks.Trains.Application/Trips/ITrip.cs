@@ -5,7 +5,7 @@ namespace Thoughtworks.Trains.Application.Trips
 {
     public interface ITrip
     {
-        Town Origin { get; }
+        ITown Origin { get; }
 
         IEnumerable<Route> Routes { get; }
 

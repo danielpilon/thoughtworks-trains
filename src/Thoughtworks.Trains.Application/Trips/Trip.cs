@@ -6,15 +6,14 @@ namespace Thoughtworks.Trains.Application.Trips
 {
     internal sealed class Trip : ITrip
     {
-
-        public Trip(Town origin)
+        public Trip(ITown origin)
         {
             Origin = origin;
         }
 
         private Stack<Route> InnerRoutes { get; } = new Stack<Route>();
         
-        public Town Origin { get; }
+        public ITown Origin { get; }
 
         public IEnumerable<Route> Routes => InnerRoutes;
 

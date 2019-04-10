@@ -1,21 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Thoughtworks.Trains.Application.Extensions;
 using Thoughtworks.Trains.Application.Paths;
 using Thoughtworks.Trains.Domain.Railway;
 using Thoughtworks.Trains.Domain.Towns;
 using Thoughtworks.Trains.Domain.Towns.Exceptions;
+using Thoughtworks.Trains.Domain.Towns.Extensions;
 
 namespace Thoughtworks.Trains.Application.Trips
 {
     public class TripService
     {
-        public IEnumerable<ITrip> Search(Town from, Town to, Func<ITrip, bool> stopSearching, Func<ITrip, bool> matchCondition = null)
+        public IEnumerable<ITrip> Search(ITown from, ITown to, Func<ITrip, bool> stopSearching, Func<ITrip, bool> matchCondition = null)
         {
             var trips = new List<ITrip>();
 
-            void SearchPaths(Town current, Trip currentTrip = null)
+            void SearchPaths(ITown current, Trip currentTrip = null)
             {
                 if (currentTrip == null) currentTrip = new Trip(current);
                 if (stopSearching(currentTrip)) return;
@@ -51,11 +51,11 @@ namespace Thoughtworks.Trains.Application.Trips
             return distance;
         }
 
-        public ITrip FindShortest(RailwaySystem railwaySystem, Town from, Town to)
+        public ITrip FindShortest(IRailwaySystem railwaySystem, ITown from, ITown to)
         {
-            var shortestPath = new Dictionary<Town, Route>();
-            var distances = new Dictionary<Town, int>();
-            var actualTowns = railwaySystem.GetTowns() as List<Town> ?? railwaySystem.GetTowns().ToList();
+            var shortestPath = new Dictionary<ITown, Route>();
+            var distances = new Dictionary<ITown, int>();
+            var actualTowns = railwaySystem.GetTowns() as List<ITown> ?? railwaySystem.GetTowns().ToList();
 
             foreach (var town in actualTowns) distances[town] = town.Equals(from) ? 0 : int.MaxValue;
             if (from.CloneIfEquals(to, out var clonedFrom, $"{from.Name}_"))

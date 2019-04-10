@@ -5,6 +5,6 @@ namespace Thoughtworks.Trains.Application.Paths
 {
     public interface IPath
     {
-        IEnumerable<Town> Towns { get; }
+        IEnumerable<ITown> Towns { get; }
     }
 }
