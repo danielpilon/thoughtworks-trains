@@ -1,8 +1,8 @@
 ﻿using Thoughtworks.Trains.Domain.Towns;
 
-namespace Thoughtworks.Trains.Application.Trips.Extensions
+namespace Thoughtworks.Trains.Application.Extensions
 {
-    public static class TownExtensions
+    internal static class TownExtensions
     {
         public static bool CloneIfEquals(this Town town, Town other, out Town clone, string newName = "")
         {

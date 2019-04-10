@@ -5,4 +5,9 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Thoughtworks.Trains.Application\Thoughtworks.Trains.Application.csproj" />
+    <ProjectReference Include="..\Thoughtworks.Trains.Domain\Thoughtworks.Trains.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

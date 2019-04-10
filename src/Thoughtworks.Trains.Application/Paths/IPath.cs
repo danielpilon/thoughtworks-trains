@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Thoughtworks.Trains.Domain.Towns;
 
-namespace Thoughtworks.Trains.Application.Trips
+namespace Thoughtworks.Trains.Application.Paths
 {
     public interface IPath
     {

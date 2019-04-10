@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.InteropServices.ComTypes;
 using Thoughtworks.Trains.Domain.Towns;
 
 namespace Thoughtworks.Trains.Domain.Railway
@@ -16,8 +17,19 @@ namespace Thoughtworks.Trains.Domain.Railway
 
         public Town GetTownByName(string town) => TownsByName[town];
 
+        public Town GetOrAddTownByName(string town) => HasTown(town) ? GetTownByName(town) : CreateTown(town);
+
+        public bool HasTown(string town) => TownsByName.ContainsKey(town);
+
         public IEnumerable<Town> GetTowns() => TownsByName.Values;
 
         public IEnumerable<Route> GetRoutesByTown(Town town) => RoutesByTown[town];
+        private Town CreateTown(string townName)
+        {
+            var town = new Town(townName);
+            AddTown(town);
+            return town;
+        }
+
     }
 }

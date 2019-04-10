@@ -4,7 +4,7 @@ using Thoughtworks.Trains.Domain.Towns;
 
 [assembly: InternalsVisibleTo("Thoughtworks.Trains.Application.Tests")]
 
-namespace Thoughtworks.Trains.Application.Trips
+namespace Thoughtworks.Trains.Application.Paths
 {
     internal sealed class Path : IPath
     {

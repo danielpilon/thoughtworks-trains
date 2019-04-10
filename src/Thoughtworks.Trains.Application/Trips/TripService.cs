@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Thoughtworks.Trains.Application.Trips.Extensions;
+using Thoughtworks.Trains.Application.Extensions;
+using Thoughtworks.Trains.Application.Paths;
 using Thoughtworks.Trains.Domain.Railway;
 using Thoughtworks.Trains.Domain.Towns;
 using Thoughtworks.Trains.Domain.Towns.Exceptions;
@@ -10,7 +11,7 @@ namespace Thoughtworks.Trains.Application.Trips
 {
     public class TripService
     {
-        public static IEnumerable<ITrip> Search(Town from, Town to, Func<ITrip, bool> stopSearching, Func<ITrip, bool> matchCondition = null)
+        public IEnumerable<ITrip> Search(Town from, Town to, Func<ITrip, bool> stopSearching, Func<ITrip, bool> matchCondition = null)
         {
             var trips = new List<ITrip>();
 
@@ -38,7 +39,7 @@ namespace Thoughtworks.Trains.Application.Trips
             return trips;
         }
 
-        public static int ResolveDistance(IPath path)
+        public int ResolveDistance(IPath path)
         {
             var distance = 0;
             for (var i = 0; i < path.Towns.Count() - 1; i++)
@@ -50,7 +51,7 @@ namespace Thoughtworks.Trains.Application.Trips
             return distance;
         }
 
-        public static ITrip FindShortest(RailwaySystem railwaySystem, Town from, Town to)
+        public ITrip FindShortest(RailwaySystem railwaySystem, Town from, Town to)
         {
             var shortestPath = new Dictionary<Town, Route>();
             var distances = new Dictionary<Town, int>();

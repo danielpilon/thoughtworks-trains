@@ -1,4 +1,5 @@
 using System.Linq;
+using Thoughtworks.Trains.Application.Paths;
 using Thoughtworks.Trains.Application.Trips;
 using Thoughtworks.Trains.Domain.Railway;
 using Thoughtworks.Trains.Domain.Towns;
@@ -43,6 +44,7 @@ namespace Thoughtworks.Trains.Application.Tests
         }
 
         private RailwaySystem Railway { get; } = new RailwaySystem();
+        private TripService TripService { get; } = new TripService();
 
         [Theory]
         [InlineData(9, "A", "B", "C")]
