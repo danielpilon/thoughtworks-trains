@@ -26,7 +26,7 @@ namespace Thoughtworks.Trains.Application.Trips
         public ITown Origin { get; }
 
         /// <summary>
-        /// Gets an <see cref="IEnumerable{T}"/> of <see cref="Route"/> with the sequence of routes that defines this tirp.
+        /// Gets an <see cref="IEnumerable{T}"/> of <see cref="Route"/> with the sequence of routes that defines this trip.
         /// </summary>
         public IEnumerable<Route> Routes => InnerRoutes;
 

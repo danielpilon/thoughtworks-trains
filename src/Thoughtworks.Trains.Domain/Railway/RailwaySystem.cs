@@ -4,6 +4,7 @@ using Thoughtworks.Trains.Domain.Railway.Exceptions;
 using Thoughtworks.Trains.Domain.Towns;
 
 [assembly: InternalsVisibleTo("Thoughtworks.Trains.Application.Tests")]
+[assembly: InternalsVisibleTo("Thoughtworks.Trains.Domain.Tests")]
 
 namespace Thoughtworks.Trains.Domain.Railway
 {

@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Thoughtworks.Trains.Application.Paths;
 using Thoughtworks.Trains.Application.Trips;
@@ -6,7 +7,7 @@ using Thoughtworks.Trains.Domain.Towns;
 using Thoughtworks.Trains.Domain.Towns.Exceptions;
 using Xunit;
 
-namespace Thoughtworks.Trains.Application.Tests
+namespace Thoughtworks.Trains.Application.Tests.Trips
 {
     public class TripServiceUnitTests
     {
@@ -109,7 +110,6 @@ namespace Thoughtworks.Trains.Application.Tests
             Assert.Equal(expectedTrips, trips.Count());
         }
 
-
         [Theory]
         [InlineData("C", "C", 30, 7)]
         public void Search_ShouldReturnExpectedMaxTrips_WithDistanceLessThanMaxDistance(string from, string to, int maxDistance, int expectedTrips)
@@ -119,6 +119,14 @@ namespace Thoughtworks.Trains.Application.Tests
 
             // Assert
             Assert.Equal(expectedTrips, trips.Count());
+        }
+
+        [Fact]
+        public void Search_WhenStopConditionIsNull_ShouldThrowArgumentNullException()
+        {
+            // Act and Assert
+            Assert.Throws<ArgumentNullException>(() =>
+                TripService.Search(Railway.GetTownByName("A"), Railway.GetTownByName("B"), null));
         }
 
         [Theory]

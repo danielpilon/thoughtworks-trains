@@ -25,6 +25,8 @@ namespace Thoughtworks.Trains.Domain.Railway
         /// <returns>A new instance of <see cref="IRailwaySystem"/>.</returns>
         public IRailwaySystem Build(string routeSet)
         {
+            if (string.IsNullOrWhiteSpace(routeSet))
+                throw new ArgumentNullException(nameof(routeSet));
             var railwaySystem = new RailwaySystem();
             foreach (var routeDefinition in routeSet.Split(','))
             {

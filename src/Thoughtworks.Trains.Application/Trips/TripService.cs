@@ -98,7 +98,7 @@ namespace Thoughtworks.Trains.Application.Trips
                 distances[clonedFrom] = 0;
             }
 
-            while (actualTowns.Count() != 0)
+            while (actualTowns.Count != 0)
             {
                 // This is bad. Should use a Binary Heap instead, but .NET doesn't have one by default like Java's Priority Queue.
                 var actualShortest = actualTowns.OrderBy(t => distances[t]).First();

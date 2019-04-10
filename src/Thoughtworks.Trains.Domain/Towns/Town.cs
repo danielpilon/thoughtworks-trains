@@ -38,20 +38,20 @@ namespace Thoughtworks.Trains.Domain.Towns
             if (route.From.Equals(this))
                 RoutesByDestinationTown.Add(route.To, route);
             else
-                throw new InconsistentRouteException($"Inconsistent route detected. Origin {route.From} is not {this}.", route);
+                throw new InconsistentRouteException(route, this);
         }
 
         /// <inheritdoc />
         public Route GetRoute(ITown to) =>
             RoutesByDestinationTown.ContainsKey(to) ? RoutesByDestinationTown[to] : throw new InvalidRouteException($"There's no such route that goes to '{to}' town.");
-        
+
         /// <inheritdoc />
         public bool Equals(ITown other) => !ReferenceEquals(null, other) && (ReferenceEquals(this, other) || string.Equals(Name, other.Name));
 
         /// <inheritdoc />
         public override bool Equals(object obj) =>
             !ReferenceEquals(null, obj) &&
-            (ReferenceEquals(this, obj) || obj.GetType() == GetType() && Equals((Town) obj));
+            (ReferenceEquals(this, obj) || obj.GetType() == GetType() && Equals((Town)obj));
 
         /// <inheritdoc />
         public override int GetHashCode() => Name != null ? Name.GetHashCode() : 0;

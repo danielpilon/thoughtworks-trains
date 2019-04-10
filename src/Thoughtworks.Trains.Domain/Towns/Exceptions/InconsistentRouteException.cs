@@ -3,20 +3,15 @@
 namespace Thoughtworks.Trains.Domain.Towns.Exceptions
 {
     /// <summary>
-    /// An <see cref="Exception"/> that represents an incosistent route.
+    /// An <see cref="Exception"/> that represents an inconsistent route.
     /// </summary>
     public class InconsistentRouteException : Exception
     {
         /// <summary>
         /// Creates a new instance of <see cref="InconsistentRouteException"/>.
         /// </summary>
-        /// <param name="message">The message with the details of the exception.</param>
-        /// <param name="route">The instance of the inconsistent <see cref="InconsistentRoute"/>.</param>
-        public InconsistentRouteException(string message, Route route) : base(message) => InconsistentRoute = route;
-
-        /// <summary>
-        /// Gets the inconsistent instance of <see cref="Route"/>.
-        /// </summary>
-        public Route InconsistentRoute { get; }
+        /// <param name="route">The instance of the inconsistent <see cref="InconsistentRouteException"/>.</param>
+        /// <param name="origin">The expected instance of <see cref="ITown"/>.</param>
+        public InconsistentRouteException(Route route, ITown origin) : base($"Inconsistent route detected. Origin {route.From} is not {origin}.") { }
     }
 }
